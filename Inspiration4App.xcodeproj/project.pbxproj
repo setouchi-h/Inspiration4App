@@ -34,6 +34,16 @@
 			path = Inspiration4App;
 			sourceTree = "<group>";
 		};
+		98979CD72CA0731D00A2AB0A /* Areas */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Areas;
+			sourceTree = "<group>";
+		};
+		98979CDA2CA0735F00A2AB0A /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +61,8 @@
 		98979CB12CA070C400A2AB0A = {
 			isa = PBXGroup;
 			children = (
+				98979CDA2CA0735F00A2AB0A /* Models */,
+				98979CD72CA0731D00A2AB0A /* Areas */,
 				98979CBC2CA070C400A2AB0A /* Inspiration4App */,
 				98979CBD2CA070C400A2AB0A /* Packages */,
 				98979CBB2CA070C400A2AB0A /* Products */,
@@ -90,6 +102,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				98979CBC2CA070C400A2AB0A /* Inspiration4App */,
+				98979CD72CA0731D00A2AB0A /* Areas */,
+				98979CDA2CA0735F00A2AB0A /* Models */,
 			);
 			name = Inspiration4App;
 			packageProductDependencies = (
