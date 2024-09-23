@@ -1,5 +1,8 @@
 #usda 1.0
 (
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.0.16.0.3)"
+    }
     defaultPrim = "Root"
     metersPerUnit = 1
     upAxis = "Y"
@@ -7,52 +10,13 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["GridMaterial", "Sphere"]
-    rel material:binding = None (
-        bindMaterialAs = "weakerThanDescendants"
-    )
-
-    def Sphere "Sphere" (
+    def "SpaceX_Dragon_2_exterior" (
         active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
+        prepend references = @SpaceX_Dragon_2_exterior.usdz@
     )
     {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.05
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0, 0, 0.0004)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (0.2, 0.2, 0.2)
-                float radius = 0.05
-                token shapeType = "Sphere"
-            }
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-    }
-
-    def "GridMaterial" (
-        active = true
-        prepend references = @Materials/GridMaterial.usda@
-    )
-    {
-        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:scale = (0.007, 0.007, 0.007)
+        float3 xformOp:translate = (-4.9341793, -1.2937412, 0.4684534)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 }

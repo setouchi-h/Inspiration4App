@@ -7,44 +7,92 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Sphere_Left", "Sphere_Right", "GridMaterial"]
-    def Sphere "Sphere_Right" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
-    def Sphere "Sphere_Left" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
+    reorder nameChildren = ["GridMaterial", "Rocket", "Earth", "AmbientAudio"]
     def "GridMaterial" (
         active = true
-        prepend references = @Materials/GridMaterial.usda@
+        references = @Materials/GridMaterial.usda@
     )
     {
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
+
+    def "Rocket" (
+        active = true
+        references = @Falcon_9_SpaceX_rocket.usdz@
+    )
+    {
+        reorder nameChildren = ["ParticleEmitter", "Materials", "Meshes"]
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.013874729, 0.013874729, 0.013874729)
+        float3 xformOp:translate = (4.294966, -2.389337, -2.0000002)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "ParticleEmitter"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (26.651148, 26.651148, 26.651148)
+            float3 xformOp:translate = (0.06253052, -1.7135162, 0.4636078)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            def RealityKitComponent "VFXEmitter"
+            {
+                token info:id = "RealityKit.VFXEmitter"
+
+                def RealityKitStruct "currentState"
+                {
+                    token birthDirection = "Local"
+                    int64 burstCount = 1000
+                    float3 emissionDirection = (0, -1, 0)
+
+                    def RealityKitStruct "mainEmitter"
+                    {
+                        float birthRate = 1000
+                        float4 endColorA = (1, 0.13928027, 0, 1)
+                        float particleSize = 0.2
+                        float particleSizeVariation = 0
+                        float sizeMultiplierAtEndOfLifespan = 0.1
+                        bool useEndColor = 1
+                        bool useEndColorRange = 0
+                    }
+
+                    def RealityKitStruct "spawnedEmitter"
+                    {
+                    }
+                }
+            }
+        }
+    }
+
+    def "Earth" (
+        active = true
+        references = @Earth.usdz@
+    )
+    {
+        reorder nameChildren = ["AmbientAudio", "geom"]
+        float3 xformOp:scale = (20, 20, 20)
+        float3 xformOp:translate = (-2.25, -1.2, -4)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
+def Xform "AmbientAudio"
+{
+    reorder nameChildren = ["Space_wav2", "AmbientAudio", "Space_wav"]
+    quatf xformOp:orient = (1, 0, 0, 0)
+    float3 xformOp:scale = (0.9999999, 0.9999999, 0.9999999)
+    float3 xformOp:translate = (0, 1.1920929e-7, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def RealityKitComponent "AmbientAudio"
+    {
+        uniform token info:id = "RealityKit.AmbientAudio"
+    }
+}
+
+def RealityKitAudioFile "Space_wav"
+{
+    uniform asset file = @Space.wav@
+    uniform bool shouldLoop = 1
 }
 
